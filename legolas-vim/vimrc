@@ -20,7 +20,6 @@ Plugin 'w0rp/ale'
 
 " Highlights trailing whitespace in red and provides
 Plugin 'bronson/vim-trailing-whitespace'
-
 " multiple selections
 Plugin 'terryma/vim-multiple-cursors'
 
@@ -265,5 +264,17 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 
+" my own profile
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {}<ESC>i
+inoremap < <><ESC>i
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
+
+inoremap <C-l> <Right>
+
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 " override with your local vimrc
 so ~/.vimrc.local
