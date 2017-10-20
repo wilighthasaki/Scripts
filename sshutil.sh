@@ -3,7 +3,7 @@
 # Written by Wenliang Shao
 # 2017.8.20
 stty erase ^H
-sshutil_config_path='./sshutil.conf'
+sshutil_config_path='/usr/bin/sshutil.conf'
 if [ ! -f "$sshutil_config_path" ] ; then
     touch "$sshutil_config_path"
 fi
