@@ -15,7 +15,8 @@ do
             read -p "Please enter the server IP:" ip_addr
             read -p "Please enter the username:" username
             read -p "Please enter the password:" password
-            echo "${conn_name} ${ip_addr} ${username} ${password}" >> $sshutil_config_path;;
+            read -p "Please enter the port:" port
+            echo "${conn_name} ${ip_addr} ${username} ${password} ${port}" >> $sshutil_config_path;;
         d)  i=0
             cat $sshutil_config_path | while read line
             do
@@ -45,5 +46,5 @@ if [ $# == 0 ] ; then
     ((server_num++))
     target_line=$(awk 'NR=='${server_num} ${sshutil_config_path})
     target_param=($target_line)
-    sshpass -p ${target_param[3]} ssh ${target_param[2]}@${target_param[1]} -o StrictHostKeyChecking=no
+    sshpass -p ${target_param[3]} ssh -p ${target_param[4]} ${target_param[2]}@${target_param[1]} -o StrictHostKeyChecking=no
 fi
