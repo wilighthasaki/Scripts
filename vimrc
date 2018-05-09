@@ -36,15 +36,15 @@
     func! CompileRunGcc()
         exec "w"
         if &filetype == 'c'
-            exec '!g++ % -o %<'
-            exec '!time ./%<'
+            exec '!g++ -std=c++11 % -o %<'
+            exec '!./%<'
         elseif &filetype == 'cpp'
-            exec '!g++ % -o %<'
-            exec '!time ./%<'
+            exec '!g++  -std=c++11 % -o %<'
+            exec '!./%<'
         elseif &filetype == 'python'
-            exec '!time python %'
+            exec '!python %'
         elseif &filetype == 'sh'
-            exec '!time bash %'
+            exec '!bash %'
         endif
     endfunc
 
@@ -646,9 +646,11 @@
 
     " PyMode {
         " Disable if python support not present
+
         if !has('python') && !has('python3')
             let g:pymode = 0
         endif
+        let g:pymode_python = 'python'
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
             let g:pymode_lint_checkers = ['pyflakes']
@@ -731,7 +733,7 @@
 
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
-            let g:acp_enableAtStartup = 0
+            let g:acp_enableAtStartup = 1
 
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files = 1
