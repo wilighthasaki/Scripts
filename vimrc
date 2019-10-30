@@ -47,6 +47,10 @@
             exec '!bash %'
         endif
     endfunc
+    let g:memolist_path = "~/data/envs/memo"
+    nnoremap mn  :MemoNew<CR>
+    nnoremap ml  :MemoList<CR>
+    nnoremap mg  :MemoGrep<CR>
 
 " }
 
@@ -121,8 +125,8 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
+    "set mouse=a                 " Automatically enable mouse usage
+    "set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
     if has('clipboard')
@@ -743,7 +747,10 @@
             let g:UltiSnipsExpandTrigger = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger = '<C-j>'
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-
+            let g:ycm_global_ycm_extra_conf = '/home/shaowenliang/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+            " goto
+            nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            "
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
