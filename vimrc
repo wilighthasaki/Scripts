@@ -47,10 +47,39 @@
             exec '!bash %'
         endif
     endfunc
+
     let g:memolist_path = "~/data/envs/memo"
     nnoremap mn  :MemoNew<CR>
     nnoremap ml  :MemoList<CR>
     nnoremap mg  :MemoGrep<CR>
+
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+    let g:airline#extensions#tabline#show_buffers = 1
+    let g:airline#extensions#tabline#show_tab_nr = 1
+    let g:airline#extensions#tabline#formatter = 'default'
+    let g:airline#extensions#tabline#buffer_nr_show = 0
+    let g:airline#extensions#tabline#fnametruncate = 16
+    let g:airline#extensions#tabline#fnamecollapse = 2
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    
+    nnoremap t1  :b1<CR>
+    nnoremap t2  :b2<CR>
+    nnoremap t3  :b3<CR>
+    nnoremap t4  :b4<CR>
+    nnoremap t5  :b5<CR>
+    nnoremap t6  :b6<CR>
+    nnoremap t7  :b7<CR>
+    nnoremap t8  :b8<CR>
+    nnoremap t9  :b9<CR>
+    nnoremap tn  :bn<CR>
+    nnoremap tp  :bp<CR>
+    nnoremap tl  :bl<CR>
+    nnoremap tf  :bf<CR>
+
+    nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    let g:airline#extensions#default#layout = [['a'], ['z']]
 
 " }
 
@@ -227,7 +256,7 @@
     endif
 
     if has('statusline')
-        set laststatus=2
+        set laststatus=0
 
         " Broken down into easily includeable segments
         set statusline=%<%f\                     " Filename
@@ -749,7 +778,6 @@
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
             let g:ycm_global_ycm_extra_conf = '/home/shaowenliang/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
             " goto
-            nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             "
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
