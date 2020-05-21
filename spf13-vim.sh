@@ -200,6 +200,8 @@ sync_repo       "$HOME/.vim/bundle/vundle" \
                 "master" \
                 "vundle"
 
+rm ~/.vimrc
+rm ~/.vimrc.bundles
 cp ./vimrc ~/.vimrc
 cp ./vimrc.bundles ~/.vimrc.bundles
 

@@ -73,13 +73,30 @@
     nnoremap t7  :b7<CR>
     nnoremap t8  :b8<CR>
     nnoremap t9  :b9<CR>
-    nnoremap tn  :bn<CR>
-    nnoremap tp  :bp<CR>
-    nnoremap tl  :bl<CR>
-    nnoremap tf  :bf<CR>
 
+    " ctags
+    nnoremap tn  :tn<CR>
+    nnoremap tp  :tp<CR>
+    nnoremap ts  :ts<CR>
+
+    let g:gutentags_ctags_extra_args = ['--fields=+l']
+    let g:ycm_collect_identifiers_from_tags_files = 1
     nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
     let g:airline#extensions#default#layout = [['a'], ['z']]
+
+    augroup autoformat_settings
+        autocmd FileType bzl AutoFormatBuffer buildifier
+        autocmd FileType c,h,cpp,proto AutoFormatBuffer clang-format
+        autocmd FileType dart AutoFormatBuffer dartfmt
+        autocmd FileType go AutoFormatBuffer gofmt
+        autocmd FileType gn AutoFormatBuffer gn
+        autocmd FileType java AutoFormatBuffer google-java-format
+        autocmd FileType python AutoFormatBuffer yapf
+        " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+        autocmd FileType rust AutoFormatBuffer rustfmt
+        autocmd FileType vue AutoFormatBuffer prettier
+    augroup END
+
 
 " }
 
@@ -319,6 +336,10 @@
     autocmd FileType haskell setlocal commentstring=--\ %s
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
+    "set cindent
+    "set cinoptions=t0,g1,h1,N-s,j1
+    au FileType h,c,cpp,html,htmldjango,lua,javascript,nsis
+    \ set expandtab | set tabstop=2 | set shiftwidth=2
 
 " }
 
@@ -768,15 +789,16 @@
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 1
 
-            " enable completion from tags
-            let g:ycm_collect_identifiers_from_tags_files = 1
             let g:ycm_python_binary_path = 'python'
 
             " remap Ultisnips for compatibility for YCM
             let g:UltiSnipsExpandTrigger = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger = '<C-j>'
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-            let g:ycm_global_ycm_extra_conf = '/home/shaowenliang/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+            let g:ycm_global_ycm_extra_conf = '/home/shaowenliang//bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+            " enable completion from tags
+            let g:ycm_collect_identifiers_from_tags_files = 1
             " goto
             "
             " Enable omni completion.
