@@ -39,7 +39,7 @@
             exec '!g++ -std=c++11 % -o %<'
             exec '!./%<'
         elseif &filetype == 'cpp'
-            exec '!g++  -std=c++11 % -o %<'
+            exec '!g++ -fno-elide-constructors -std=c++11 % -o %<'
             exec '!./%<'
         elseif &filetype == 'python'
             exec '!python %'
@@ -47,6 +47,57 @@
             exec '!bash %'
         endif
     endfunc
+
+    let g:memolist_path = "~/data/envs/memo"
+    nnoremap mn  :MemoNew<CR>
+    nnoremap ml  :MemoList<CR>
+    nnoremap mg  :MemoGrep<CR>
+
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+    let g:airline#extensions#tabline#show_buffers = 1
+    let g:airline#extensions#tabline#show_tab_nr = 1
+    let g:airline#extensions#tabline#formatter = 'default'
+    let g:airline#extensions#tabline#buffer_nr_show = 0
+    let g:airline#extensions#tabline#fnametruncate = 16
+    let g:airline#extensions#tabline#fnamecollapse = 2
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    
+    nnoremap t1  :b1<CR>
+    nnoremap t2  :b2<CR>
+    nnoremap t3  :b3<CR>
+    nnoremap t4  :b4<CR>
+    nnoremap t5  :b5<CR>
+    nnoremap t6  :b6<CR>
+    nnoremap t7  :b7<CR>
+    nnoremap t8  :b8<CR>
+    nnoremap t9  :b9<CR>
+
+    " ctags
+    nnoremap tn  :tn<CR>
+    nnoremap tp  :tp<CR>
+    nnoremap ts  :ts<CR>
+
+    let g:gutentags_ctags_extra_args = ['--fields=+l']
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    let g:airline#extensions#default#layout = [['a'], ['z']]
+
+    augroup autoformat_settings
+        autocmd FileType bzl AutoFormatBuffer buildifier
+        " autocmd FileType c,h,cpp,proto AutoFormatBuffer clang-format
+        autocmd FileType dart AutoFormatBuffer dartfmt
+        autocmd FileType go AutoFormatBuffer gofmt
+        autocmd FileType gn AutoFormatBuffer gn
+        autocmd FileType java AutoFormatBuffer google-java-format
+        autocmd FileType python AutoFormatBuffer yapf
+        autocmd FileType python AutoFormatBuffer autopep8
+        autocmd FileType rust AutoFormatBuffer rustfmt
+        autocmd FileType vue AutoFormatBuffer prettier
+    augroup END
+    
+    let g:instant_markdown_port=8222
 
 " }
 
@@ -120,9 +171,10 @@
         "set term=$TERM          " Make arrow and other keys work
     " endif
     filetype plugin indent on   " Automatically detect file types.
+    
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
+    "set mouse=a                 " Automatically enable mouse usage
+    "set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
     if has('clipboard')
@@ -223,7 +275,7 @@
     endif
 
     if has('statusline')
-        set laststatus=2
+        set laststatus=0
 
         " Broken down into easily includeable segments
         set statusline=%<%f\                     " Filename
@@ -258,7 +310,8 @@
 
 " Formatting {
 
-    set nowrap                      " Do not wrap long lines
+    " set nowrap                      " Do not wrap long lines
+    set wrap                      " Do not wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -286,6 +339,10 @@
     autocmd FileType haskell setlocal commentstring=--\ %s
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
+    "set cindent
+    "set cinoptions=t0,g1,h1,N-s,j1
+    au FileType h,c,cpp,html,htmldjango,lua,javascript,nsis
+    \ set expandtab | set tabstop=2 | set shiftwidth=2
 
 " }
 
@@ -343,7 +400,7 @@
     " Default vim behaviour is to act relative to text line in both cases
     " If you prefer the default behaviour, add the following to your
     " .vimrc.before.local file:
-    "   let g:spf13_no_wrapRelMotion = 1
+    " let g:spf13_no_wrapRelMotion = 1
     if !exists('g:spf13_no_wrapRelMotion')
         " Same for 0, home, end, etc
         function! WrapRelativeMotion(key, ...)
@@ -735,15 +792,18 @@
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 1
 
-            " enable completion from tags
-            let g:ycm_collect_identifiers_from_tags_files = 1
             let g:ycm_python_binary_path = 'python'
 
             " remap Ultisnips for compatibility for YCM
             let g:UltiSnipsExpandTrigger = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger = '<C-j>'
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+            let g:ycm_global_ycm_extra_conf = '/home/shaowenliang//bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
+            " enable completion from tags
+            let g:ycm_collect_identifiers_from_tags_files = 1
+            " goto
+            "
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -1194,7 +1254,7 @@
         setlocal bufhidden=delete
         setlocal nobuflisted
         setlocal noswapfile
-        setlocal nowrap
+        setlocal wrap
         setlocal filetype=shell
         setlocal syntax=shell
 
