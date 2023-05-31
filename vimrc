@@ -86,7 +86,7 @@
 
     augroup autoformat_settings
         autocmd FileType bzl AutoFormatBuffer buildifier
-        " autocmd FileType c,h,cpp,proto AutoFormatBuffer clang-format
+        autocmd FileType c,h,cpp,proto AutoFormatBuffer clang-format
         autocmd FileType dart AutoFormatBuffer dartfmt
         autocmd FileType go AutoFormatBuffer gofmt
         autocmd FileType gn AutoFormatBuffer gn
@@ -95,7 +95,10 @@
         autocmd FileType python AutoFormatBuffer autopep8
         autocmd FileType rust AutoFormatBuffer rustfmt
         autocmd FileType vue AutoFormatBuffer prettier
+        autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
     augroup END
+
+    nnoremap <leader>a :<C-u>s/<[^>]*>/\r&\r/g<CR>:<C-u>g/^$/d<CR>gg=G
     
     let g:instant_markdown_port=8222
 
