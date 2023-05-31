@@ -105,7 +105,6 @@
     " General {
         Plugin 'mbledkowski/neuleetcode.vim'
         if count(g:spf13_bundle_groups, 'general')
-            Plugin 'suan/vim-instant-markdown'
             Bundle 'glidenote/memolist.vim'
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
